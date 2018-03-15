@@ -29,7 +29,15 @@ const userSchema = new Schema({
     follower: [{
         type: Schema.Types.ObjectId,
         ref: 'User'
-    }]
+    }],
+    like:[{
+        type: Schema.Types.ObjectId,
+        ref: 'Post'
+    }],
+    view:[{
+        type: Schema.Types.ObjectId,
+        ref: 'Post'
+    }],
 })
 
 const User = mongoose.model('User',userSchema)

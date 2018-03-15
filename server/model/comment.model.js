@@ -6,7 +6,11 @@ const commentSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    text: String
+    text: String,
+    post:{
+        type: Schema.Types.ObjectId,
+        ref: 'Post'
+    }
 })
 
 const Comment = mongoose.model('Comment',commentSchema)

@@ -1,12 +1,15 @@
 const express = require('express')
 const router = express.Router()
-const { signIn } = require('../controllers/login.routes')
+const { logIn, readAllUsers, destroyUser } = require('../controllers/login.routes')
 
-router.get('/', (req, res) => {
-  res.status(201).json({
-    message: 'login!'
-  })
-})
+// router.get('/', (req, res) => {
+//   res.status(201).json({
+//     message: 'login!'
+//   })
+// })
 
-router.post('/', signIn)
+router.post('/', logIn)
+router.get('/', readAllUsers)
+// router.delete('/:id', destroyUser)
+
 module.exports = router

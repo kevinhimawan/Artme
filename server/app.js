@@ -3,8 +3,11 @@ const mongoose = require('mongoose')
 const app = express()
 const multer  = require('multer')
 const cors = require('cors')
+const bodyParser = require('body-parser')
 
 app.use(cors())
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Monggose
 const dbURL = 'mongodb://localhost:27017/artme'

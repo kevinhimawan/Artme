@@ -1,22 +1,31 @@
 function statusChangeCallback(response) {
   console.log("statusChangeCallback");
-  console.log(response);
+  console.log('>>>',response);
   if (response.status == "connected") {
     axios({
       method: 'post',
       url: 'http://localhost:3000/login',
       data: {
-        access_token: response.authResponse.accessToken
+        access_token: response.authResponse.accessToken,
       }
-    }).then(function(response) {
+    }).then(function(success) {
       // if(response)
-      console.log(response)
+      console.log(success)
     })
     // testAPI(response);
   } else {
     document.getElementById("status").innerHTML =
       "Please log " + "into this app.";
   }
+}
+
+function getScope() {
+  FB.login(function(response) {
+      console.log(response,'<<<<')
+  }, {
+      scope: 'publish_actions', 
+      return_scopes: true
+  });
 }
 
 function checkLoginState() {
@@ -52,8 +61,5 @@ function testAPI(responsesuccess) {
   FB.api("/me", { fields: ["name", "email"] }, function(response) {
     console.log(responsesuccess)
     console.log(response)
-    console.log("Successful login for: " + response.name);
-    document.getElementById("status").innerHTML =
-      "Thanks for logging in, " + response.name + "!";
   });
 }

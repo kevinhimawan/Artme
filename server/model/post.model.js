@@ -3,20 +3,31 @@ const Schema = mongoose.Schema
 
 const postSchema = new Schema({
     title: String,
-    created: Date.now,
+    created: {
+        type: Date,
+        default: Date.now
+    },
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    commend:{
+    comment:[{
         type: Schema.Types.ObjectId,
         ref: 'Comment'
-    },
+    }],
     file:[{
         type: Schema.Types.ObjectId,
         ref: 'File'
     }],
     like: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    category: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Category'
+    }],
+    viewer:[{
         type: Schema.Types.ObjectId,
         ref: 'User'
     }]

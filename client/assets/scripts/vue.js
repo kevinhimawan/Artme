@@ -1,7 +1,8 @@
 new Vue({
     el: '#app',
     data: {
-        postImages: [{
+        postImages: [
+            {
                 id: '01',
                 title: 'Broccoli House',
                 image: 'https://wallpaperbrowse.com/media/images/750806.jpg',

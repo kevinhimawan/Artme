@@ -53,8 +53,9 @@ module.exports = {
         })  
     },
 
-    loginUser(req,res){
+    loginUser(req,res){        
         const {username,password} = req.body
+        console.log(req.body)
         User.findOne({$or:[
             {email: username},
             {username: username}

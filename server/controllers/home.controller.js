@@ -14,67 +14,65 @@ module.exports = {
             user,
             category,description
         })
-        console.log(req.body)
-        newPost.save((err, newPostData) => {
-            console.log(err)
-            console.log('newpostdata')
-            if (!err) {
-                const uploadPhoto = req.files.map(file => {
-                    return new Promise((resolve, reject) => {
-                        const newFile = new File({
-                            name: file.originalname,
-                            path: file.cloudStoragePublicUrl,
-                            post: newPostData._id
-                        })
-                        newFile.save((err, newFileData) => {
-                            console.log(err)
-                            console.log('setelah create Poto')
-                            if (!err) {
-                                Post.update({
-                                        '_id': newPostData._id
-                                    }, {
-                                        '$push': {
-                                            file: newFileData._id
-                                        }
-                                    },
-                                    function (err, data) {
-                                        console.log(data)
-                                        if (!err) {
-                                            User.update({
-                                                    '_id': user
-                                                }, {
-                                                    '$push': {
-                                                        post: newPostData._id
-                                                    }
-                                                },
-                                                function (err, result) {
+        console.log(req.files)
+        // newPost.save((err, newPostData) => {
+        //     if (!err) {
+        //         const uploadPhoto = req.files.map(file => {
+        //             return new Promise((resolve, reject) => {
+        //                 const newFile = new File({
+        //                     name: file.originalname,
+        //                     path: file.cloudStoragePublicUrl,
+        //                     post: newPostData._id
+        //                 })
+        //                 newFile.save((err, newFileData) => {
+        //                     console.log(err)
+        //                     console.log('setelah create Poto')
+        //                     if (!err) {
+        //                         Post.update({
+        //                                 '_id': newPostData._id
+        //                             }, {
+        //                                 '$push': {
+        //                                     file: newFileData._id
+        //                                 }
+        //                             },
+        //                             function (err, data) {
+        //                                 console.log(data)
+        //                                 if (!err) {
+        //                                     User.update({
+        //                                             '_id': user
+        //                                         }, {
+        //                                             '$push': {
+        //                                                 post: newPostData._id
+        //                                             }
+        //                                         },
+        //                                         function (err, result) {
 
-                                                    if (!err) {
-                                                        resolve(data)
-                                                    } else {
-                                                        reject(err)
-                                                    }
-                                                })
-                                        } else {
-                                            res.status(409).json('Error')
-                                        }
-                                    })
-                            } else {
-                                res.status(409).json('Error')
-                            }
-                        })
-                    })
-                })
+        //                                             if (!err) {
+        //                                                 resolve(data)
+        //                                             } else {
+        //                                                 reject(err)
+        //                                             }
+        //                                         })
+        //                                 } else {
+        //                                     res.status(409).json('Error')
+        //                                 }
+        //                             })
+        //                     } else {
+        //                         res.status(409).json('Error')
+        //                     }
+        //                 })
+        //             })
+        //         })
 
-                Promise.all(uploadPhoto).then(result => {
-                    console.log('helloooo')
-                    res.status(201).json('DONE')
-                    console.log('uhhh')
-                })
-            } else {
-                res.status(409).json(err)
-            }
-        })
+        //         Promise.all(uploadPhoto).then(result => {
+        //             console.log('helloooo')
+        //             res.status(201).json('DONE')
+        //             console.log('uhhh')
+        //         })
+        //     } else {
+        //         res.status(409).json(err)
+        //     }
+        // })
     },
 
     editPost(req, res) {

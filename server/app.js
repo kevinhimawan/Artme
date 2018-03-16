@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({
   extended: false,
 }))
 // Monggose
-const dbURL = 'mongodb://andrew:12345@cluster0-shard-00-00-nrxtg.mongodb.net:27017,cluster0-shard-00-01-nrxtg.mongodb.net:27017,cluster0-shard-00-02-nrxtg.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin'
+const dbURL = 'mongodb://localhost/artme'
 
 mongoose.connect(dbURL, (err) => {
   if (!err) {
@@ -38,6 +38,6 @@ app.use('/login',Login)
 app.use('/home',Home)
 
 
-app.listen(80, () => {
+app.listen(3000, () => {
   console.log(`Welcome Abroad`)
 })

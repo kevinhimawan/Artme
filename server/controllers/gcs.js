@@ -25,35 +25,44 @@ ImgUpload.sendUploadToGCS = (req, res, next) => {
     }
 
     const bulkupload = req.files.map((data) => {
-        const gcsname = Date.now() + '.' + data.originalname.split('.').pop();
-        const file = bucket.file(gcsname);
+        return new Promise((resolve,reject)=>{
+            const gcsname = Date.now() + '.' + data.originalname.split('.').pop();
+            const file = bucket.file(gcsname);
 
-        // // prepare the stream
-        const stream = file.createWriteStream({
-            metadata: {
-                contentType: data.mimetype
-            }
-        });
-
-        // // handle when upload error
-        stream.on('error', (err) => {
-            data.cloudStorageError = err;
-            next(err);
-        });
-
-        // // handle when upload finish
-        stream.on('finish', () => {
-            data.cloudStorageObject = gcsname;
-            file.makePublic(). //make the uploaded file public
-            then(() => {
-                data.cloudStoragePublicUrl = getPublicUrl(gcsname);
-                next();
+            // // prepare the stream
+            const stream = file.createWriteStream({
+                metadata: {
+                    contentType: data.mimetype
+                }
             });
-        });
 
-        // // write the file
-        stream.end(data.buffer);
+            // // handle when upload error
+            stream.on('error', (err) => {
+                data.cloudStorageError = err;
+                reject(err)
+            });
 
+            // // handle when upload finish
+            stream.on('finish', () => {
+                data.cloudStorageObject = gcsname;
+                file.makePublic(). //make the uploaded file public
+                then(() => {
+                    data.cloudStoragePublicUrl = getPublicUrl(gcsname);
+                    resolve(data.cloudStoragePublicUrl)
+                });
+            });
+
+            // // write the file
+            stream.end(data.buffer);
+        })
+    })
+
+    Promise.all(bulkupload).then(allready=>{
+        console.log('hellooo')
+        next()
+    })
+    .catch(err=>{
+        next(err)
     })
 }
 

@@ -30,7 +30,8 @@ const postSchema = new Schema({
     viewer:[{
         type: Schema.Types.ObjectId,
         ref: 'User'
-    }]
+    }],
+    description:String
 })
 
 const Post = mongoose.model('Post',postSchema)

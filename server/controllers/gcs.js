@@ -8,7 +8,6 @@ const storage = Storage({
     keyFilename: './gcs.json'
 });
 
-
 // set which bucket
 const bucket = storage.bucket(config.CLOUD_BUCKET);
 

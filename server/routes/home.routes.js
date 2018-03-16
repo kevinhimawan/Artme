@@ -18,7 +18,8 @@ const {
     editComment,
     followUser,
     unfollowUser,
-    viewPost
+    viewPost,
+    getCategory,
 } = require('../controllers/home.controller')
 
 // Multer
@@ -28,16 +29,15 @@ const uploadDisk = multer({
     fileSize: 5 * 1024 * 1024
 })
 
-
-
 // Post
-router.post('/createpost', uploadDisk.array('image'), ImgUpload.sendUploadToGCS, createPost)
+router.post('/createPost',uploadDisk.array('image'), ImgUpload.sendUploadToGCS, createPost)
 router.post('/editpost', editPost)
 router.get('/', showAllPost)
 router.post('/like', likePost)
 router.post('/unlike', unLikePost)
 router.post('/deletepost', deletePost)
 router.post('/viewpost', viewPost)
+router.get('/getcategory', getCategory)
 
 
 // Comment

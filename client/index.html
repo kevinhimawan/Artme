@@ -45,8 +45,8 @@
                         <a class="nav-link text-white">Create Post</a>
                     </li>
                 </ul>
-                <div class="navbar-item text-white" style="padding: 0px 8px 0px 0px" data-toggle="modal" v-on:click="loginpage" >Login</div>
-                <div class="navbar-item text-white" style="padding: 0px 8px 0px 0px" data-toggle="modal" v-on:click="logout" >Logout</div>
+                <div v-if="userid === null" class="navbar-item text-white" style="padding: 0px 8px 0px 0px" data-toggle="modal" v-on:click="loginpage" >Login</div>
+                <div v-else class="navbar-item text-white" style="padding: 0px 8px 0px 0px" data-toggle="modal" v-on:click="logout" >Logout</div>
             </div>
         </nav>
         <div class="jumbotron jumbotron-fluid" style="margin: 56px 0px 0px; background: url('assets/images/banner-copy.jpg'); background-size:cover;">
@@ -99,15 +99,18 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <span>Title: </span><input type="text" class="form-control">
-                        <span>Description: </span><input type="text" class="form-control">
+                        <span>Title: </span><input v-model="title" type="text" class="form-control">
+                        <span>Description: </span><input type="text" v-model="description" class="form-control">
                         <span>Your art: </span><br>
                         <input @change="ambilFileNya" type="file" multiple>
+                        <select name="" v-model="getCategory">
+                            <option v-for="category in categories" :value="category._id">{{category.name}}</option>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" v-on:click="uploadtest" class="btn text-light" style="background-color:#00a1de">Post <i class="fas fa-angle-right"></i></button>
+                    <button type="button" v-on:click="uploadPost" class="btn text-light" style="background-color:#00a1de">Post <i class="fas fa-angle-right"></i></button>
                 </div>
                 </div>
             </div>

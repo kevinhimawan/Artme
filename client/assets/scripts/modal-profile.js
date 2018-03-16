@@ -3,7 +3,7 @@ Vue.component('modal-profile', {
   template: `
   <div class=container>
       <div v-for="post in postimages">
-            <div class="modal fade" :id="post.author" tabindex="-1" role="dialog" aria-labelledby="ProfileModalLabel" aria-hidden="true">
+            <div class="modal fade" :id="post.user.username" tabindex="-1" role="dialog" aria-labelledby="ProfileModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -15,7 +15,8 @@ Vue.component('modal-profile', {
                             <div class="row">
                                 <div class="col-md-3" v-for="postdetail in postimages" v-if="postdetail.author === post.author">
                                     <div class="card">
-                                        <img class="card-img-top" :src="postdetail.image" alt="Card image cap">
+                                    
+                                        <img class="card-img-top" :src="postdetail.file[1].path" alt="Card image cap">
                                         <div class="card-body">
                                             <h5 class="card-title">{{postdetail.id}}</h5>
                                             <p class="card-text">{{postdetail.desc}}

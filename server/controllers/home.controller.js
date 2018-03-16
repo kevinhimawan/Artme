@@ -4,35 +4,31 @@ const User = require('../model/user.model')
 const multer = require('multer')
 const File = require('../model/file.model')
 const jwt = require("jsonwebtoken");
+const Category = require('../model/category.model')
 
 module.exports = {
     createPost(req, res) {
-        const {
-            title,
-            user,
-            category
-        } = req.body
-
-        console.log(req.files)
+        const {title,user,category,description} = req.body
         const newPost = new Post({
             title,
             user,
-            category
+            category,description
         })
+        console.log(req.body)
         newPost.save((err, newPostData) => {
+            console.log(err)
+            console.log('newpostdata')
             if (!err) {
                 const uploadPhoto = req.files.map(file => {
                     return new Promise((resolve, reject) => {
-                        const {
-                            filename,
-                            path
-                        } = file
                         const newFile = new File({
-                            name: filename,
-                            path,
+                            name: file.originalname,
+                            path: file.cloudStoragePublicUrl,
                             post: newPostData._id
                         })
                         newFile.save((err, newFileData) => {
+                            console.log(err)
+                            console.log('setelah create Poto')
                             if (!err) {
                                 Post.update({
                                         '_id': newPostData._id
@@ -42,6 +38,7 @@ module.exports = {
                                         }
                                     },
                                     function (err, data) {
+                                        console.log(data)
                                         if (!err) {
                                             User.update({
                                                     '_id': user
@@ -51,6 +48,7 @@ module.exports = {
                                                     }
                                                 },
                                                 function (err, result) {
+
                                                     if (!err) {
                                                         resolve(data)
                                                     } else {
@@ -69,9 +67,9 @@ module.exports = {
                 })
 
                 Promise.all(uploadPhoto).then(result => {
-                    res.status(200).json({
-                        message: 'All created'
-                    })
+                    console.log('helloooo')
+                    res.status(201).json('DONE')
+                    console.log('uhhh')
                 })
             } else {
                 res.status(409).json(err)
@@ -516,5 +514,12 @@ module.exports = {
                     })
                 }
             })
+    },
+    getCategory(req,res){
+        Category.find()
+        .exec()
+        .then(categoryData=>{
+            res.status(200).json(categoryData)
+        })
     }
 }

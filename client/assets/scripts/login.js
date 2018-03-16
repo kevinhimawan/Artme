@@ -2,7 +2,14 @@ new Vue({
     el: '#loginPage',
     data:{
         username: '',
+        email:'',
         password: '',
+    },
+    created:function(){
+        const token = localStorage.getItem('token')
+        if(token){
+            window.location.href = 'index.html'
+        }
     },
     methods:{
         login:function(){
@@ -21,6 +28,22 @@ new Vue({
             .catch(err=>{
                 // console.log(err)
             })
+        },
+        signUp:function() {
+            let data = {
+                username: this.username,
+                email: this.email,
+                password: this.password
+            }
+            console.log(data)
+            axios.post('http://localhost:3000/login/create', data)
+                .then(response=>{
+                    alert('signup berhasil')
+                    window.location.href='login.html'
+                })
+                .catch(err=>{
+                    console.log(err)
+                })
         }
     }
 })

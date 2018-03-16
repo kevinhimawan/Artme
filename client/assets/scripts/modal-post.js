@@ -3,12 +3,12 @@ Vue.component("modal-post", {
   template: `
   <div class="container">
     <div class="asal" v-for="content in postimages">
-        <div class="modal fade" v-bind:id="content.id" tabindex="-1" role="dialog" aria-labelledby="PostModalLongTitle" aria-hidden="true">
+        <div class="modal fade" v-bind:id="content._id" tabindex="-1" role="dialog" aria-labelledby="PostModalLongTitle" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="row">
                         <div class="col-md-8 p-auto">
-                            <img class="img-fluid" :src="content.image" alt="" srcset="">
+                            <img class="img-fluid" :src="content.file[1].path" alt="" srcset="">
                         </div>
                         <div class="col-md-4">
                             <ul class="list-group list-group-flush">

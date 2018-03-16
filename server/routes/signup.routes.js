@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { createUser, logIn, readAllUsers, destroyUser } = require('../controllers/login.routes')
+const { createUser } = require('../controllers/login.routes')
 
 // router.get('/', (req, res) => {
 //   res.status(201).json({
@@ -8,8 +8,6 @@ const { createUser, logIn, readAllUsers, destroyUser } = require('../controllers
 //   })
 // })
 
-router.post('/', logIn)
-// router.get('/', readAllUsers)
-// router.delete('/:id', destroyUser)
+router.post('/', createUser)
 
 module.exports = router

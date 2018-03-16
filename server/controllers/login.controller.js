@@ -53,8 +53,9 @@ module.exports = {
         })  
     },
 
-    loginUser(req,res){
+    loginUser(req,res){        
         const {username,password} = req.body
+        console.log(req.body)
         User.findOne({$or:[
             {email: username},
             {username: username}
@@ -65,7 +66,10 @@ module.exports = {
                 const check = bcrypt.compareSync(password, userData.password)
                 if(check){
                     const token = jwt.sign({id: userData._id,email: userData.email,username: userData.username},'secret')
-                    res.status(200).json(token)
+                    res.status(200).json({
+                        token: token,
+                        userid: userData._id
+                    })
                 }else{
                     res.status(409).json(`Password is incorrect`)
                 }

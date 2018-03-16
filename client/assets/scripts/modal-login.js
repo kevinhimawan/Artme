@@ -4,7 +4,7 @@ Vue.component ('modal-login', {
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content" style="background-color: #d3d3d3;">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="LoginModalCenterTitle">Login To Your Account</h5>
+                    <h4 class="modal-title" id="LoginModalCenterTitle">Login To Your Account</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

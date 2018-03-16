@@ -4,10 +4,11 @@ const Schema = mongoose.Schema
 const fileSchema = new Schema({
     name: String,
     path: String,
-    user:{
+    post:{
         type: Schema.Types.ObjectId,
-        ref: 'User'
-    }
+        ref: 'Post'
+    },
+
 })
 
 const File = mongoose.model('File',fileSchema)

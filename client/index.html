@@ -41,8 +41,12 @@
                     <li class="nav-item active">
                         <a class="nav-link text-white" href="#">Profile</a>
                     </li>
+                    <li class="nav-item active">
+                        <a class="nav-link text-white">Create Post</a>
+                    </li>
                 </ul>
-                <div class="navbar-item text-white" style="padding: 0px 8px 0px 0px" data-toggle="modal" data-target="#LoginModalCenter">Login</div>
+                <div class="navbar-item text-white" style="padding: 0px 8px 0px 0px" data-toggle="modal" v-on:click="loginpage" >Login</div>
+                <div class="navbar-item text-white" style="padding: 0px 8px 0px 0px" data-toggle="modal" v-on:click="logout" >Logout</div>
             </div>
         </nav>
         <div class="jumbotron jumbotron-fluid" style="margin: 56px 0px 0px; background: url('assets/images/banner-copy.jpg'); background-size:cover;">
@@ -58,7 +62,7 @@
             <a class="nav-link" style="color:black" href="#">Trending</a>
             <a class="nav-link" style="color:black" href="#">Fresh</a>
         </nav>
-
+      
         <!-- CARD -->
         <post-card :postimages="postImages"></post-card>
 

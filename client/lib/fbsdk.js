@@ -9,10 +9,13 @@ function statusChangeCallback(response) {
         access_token: response.authResponse.accessToken,
       }
     }).then(function(success) {
-      // if(response)
-      console.log(success)
+      console.log(window.location.pathname)
+      if(success.status == 201 && window.location.pathname === '/client/login.html') {
+        localStorage.token = success.data.token
+        window.location = '/client/index.html'
+      }
+      // console.log('sukses',success)
     })
-    // testAPI(response);
   } else {
     document.getElementById("status").innerHTML =
       "Please log " + "into this app.";
@@ -55,11 +58,3 @@ window.fbAsyncInit = function() {
     "https://connect.facebook.net/id_ID/sdk.js#xfbml=1&version=v2.12&appId=2080527332166732&autoLogAppEvents=1";
   fjs.parentNode.insertBefore(js, fjs);
 })(document, "script", "facebook-jssdk");
-
-function testAPI(responsesuccess) {
-  console.log("Welcome!  Fetching your information.... ");
-  FB.api("/me", { fields: ["name", "email"] }, function(response) {
-    console.log(responsesuccess)
-    console.log(response)
-  });
-}

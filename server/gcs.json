@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "hacktiv8-198016",
+  "private_key_id": "21c562d0a1c7b973e100afb55b09f4e0e4699a48",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCjtiX7Kv7MdV0A\niwKGMPhLN5BbZBwwBRs09YHVd5ZDKX5OlCkL6L8sEwXE/kBoGFr0iBUtenKsogwJ\nyrOGpG2y+50emyYCJEPfOCRYdVu4WHWUOV67+fzdXXZQvaY2n+SOx4ocA+OXhhhh\nK+qqyoWPYumt4TKP7PiHKt3RxlT2d1S/xPoNhwOuTgJ+hCWcbxE9ewgqNPd/nD4d\nMBJCiDqfmQu5x7DtjY5mvAYCDDAY6SG4sJBdR+rf+EytTi5/JeONO0gXDK5TVgre\nFzc3Sxj3Wg9aIaf2cmcNW3/5ut7GKNYi9lVQy/W7PTPLKAqwW09Fzygxw5cjUOJu\n1irGvy1/AgMBAAECggEAQXcSQxkTYPFBqnjsHnswnutuN42V1AIGuiu+qn0ywlKy\nZnvK2i9NWzOUKA0/9iBfJs/QICqJ9syqIbREDABuuZbyYo3KKisUVQvfRNxRPCtr\ngUVbw7GY03CPYoQkFk3kGNBkQwWvGiWOVDU6lud7dzYnmdem33T0gSC8KSm1SgUT\nGQXQlgj/ClSR+I4xXSxrv9ZOt6OadxPIdlNHcgM82fo/hYS5zS3yky84eZcvBSrf\n1nJjMnKFS4fjqWEUnoKkFnHLdRvOBfh/CWtT7uwV1gxJ0FkYmUhfc+QSg1W8rtTK\n3pHSPsdNe8V4zwVZZGLVXHaw8f7Fks3+hNZPqeeJ4QKBgQDnFniYGTyKuobX0oiB\n7QU/5Jh5lBP1hZsESjQPMUXl4K9oKpiCMUr+LV23jBXoxaHcylbkfR2y5zh7FoPJ\nKchtjKUXFAZqfDXlpENxLGHfxTjPpaglrYQ45YUB7lik7HmS5wE23xcJ61SjEykV\n57LPzNRfcUmAGYxjcTj9uGoH7wKBgQC1XDyISW+rc5xg05UXed18Zhneso1CifgC\nTzOiqRAX9HtC1ccqay9U8sE29bxdnQLceX+qAvFwAyucZcZ/jkhsfK90FRzqpb3H\nGTyButlkJ+ay0bPYojk0PR43t8iPM26PToy8XR6QSpwLPR4ugf3TxVQrsGki5C7c\nXkiWMOQjcQKBgDAlGF7n8xscHXfdnx8imJNlNvctiLMAcPmF1C7OHzfzhdf39+o4\nBt3J6dqRzwa+Fij/5vaXspZRYg0S9cX1dJKOWN7kByosUrZTcNGlY4bRejKY2t1u\ntzt7Ziiu1b0Wn4WhpzkdZZlldC69kTPFIBX3IM/5tEyCBiO5tRv3Te/1AoGAJ53a\nazr/dchvZIdTjilExKPZCtieGubgkkCS2vlrVpBFTLg+JXn8gOX2ZvcPCrP9qAOy\na4TxELLgl+1zivGdyHUELqteAbPq3M8adIxIaKR+tJkyXCQzssGXFDzFRuLJR+y0\nuYDt6D8kDyBus2IZ/GSimliS3thRlDnUSVqsu0ECgYEAoKjO7ymZuhIfek+YcW5h\nx4iMgxpslHTGT8OGJHmRgTFt/vHoMjky+qX2uaEtYOly2dCe/jXB0T16nZZwrUuv\nfKzuSBsSD5fl8dEnv24VA6oMVW5vyR2AOzb9F0h0cBC4F1cAMZnyIz7tdjxkH0sV\nSAHLGqHXPejocFK1WR57Vlg=\n-----END PRIVATE KEY-----\n",
+  "client_email": "coba-multer@hacktiv8-198016.iam.gserviceaccount.com",
+  "client_id": "100907058428625484383",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/coba-multer%40hacktiv8-198016.iam.gserviceaccount.com"
+}

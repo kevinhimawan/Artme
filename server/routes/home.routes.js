@@ -1,23 +1,37 @@
 const express = require('express')
 const router = express.Router()
-const multer  = require('multer')
+const multer = require('multer')
+// GCS
+const ImgUpload = require('../controllers/gcs')
 
-const { createPost, editPost, showAllPost, likePost, unLikePost, deletePost, postAndCreateComment, deleteComment, getComment, getThisComment, editComment, followUser, unfollowUser, viewPost } = require('../controllers/home.controller')
+const {
+    createPost,
+    editPost,
+    showAllPost,
+    likePost,
+    unLikePost,
+    deletePost,
+    postAndCreateComment,
+    deleteComment,
+    getComment,
+    getThisComment,
+    editComment,
+    followUser,
+    unfollowUser,
+    viewPost
+} = require('../controllers/home.controller')
 
 // Multer
 const uploadDisk = multer({
-    storage : multer.diskStorage({
-        destination: (req,file,cb)=>{
-        cb(null,'./assets/user_photo_asset')
-        },
-        filename:(req,file,cb)=>{
-        cb(null,`${Date.now()}.${file.originalname.split('.').pop()}`)
-        }
-    })
+
+    storage: multer.MemoryStorage,
+    fileSize: 5 * 1024 * 1024
 })
 
+
+
 // Post
-router.post('/createpost', uploadDisk.array('image', 12), createPost)
+router.post('/createpost', uploadDisk.array('image'), ImgUpload.sendUploadToGCS, createPost)
 router.post('/editpost', editPost)
 router.get('/', showAllPost)
 router.post('/like', likePost)
@@ -28,7 +42,7 @@ router.post('/viewpost', viewPost)
 
 // Comment
 router.post('/postcomment', postAndCreateComment)
-router.post('/deletecomment',deleteComment)
+router.post('/deletecomment', deleteComment)
 router.get('/getcomment', getComment)
 router.post('/getthiscomment', getThisComment)
 router.post('/editthiscomment', editComment)

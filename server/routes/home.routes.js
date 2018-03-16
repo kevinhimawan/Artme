@@ -8,7 +8,7 @@ const { createPost, editPost, showAllPost, likePost, unLikePost, deletePost, pos
 const uploadDisk = multer({
     storage : multer.diskStorage({
         destination: (req,file,cb)=>{
-        cb(null,'./public/assetuser')
+        cb(null,'./assets/user_photo_asset')
         },
         filename:(req,file,cb)=>{
         cb(null,`${Date.now()}.${file.originalname.split('.').pop()}`)

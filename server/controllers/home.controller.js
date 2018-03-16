@@ -117,8 +117,11 @@ module.exports = {
 
     deletePost(req,res){
         const {postid,user} = req.body
+        console.log(postid)
+        console.log(user)
         Post.deleteOne({"_id": postid})
         .then(deleted=>{
+            console.log()
             User.update({'_id':user},
                 {"$pull": {post: postid}},
             function(err,result){

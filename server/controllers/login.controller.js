@@ -64,7 +64,8 @@ module.exports = {
             }
           })
       } else {
-        User.findOne({ email: req.body.email }, function(err, user) {
+        User.findOne({ $or:[{email: req.body.username},
+          {username: req.body.username}] }, function(err, user) {
           if(err) return res.status(500).json({ message: 'Username not found' })
           let match = bcrypt.compareSync(req.body.password, user.password)
           let token
@@ -72,7 +73,8 @@ module.exports = {
             token = jwt.sign({ id: user._id }, 'secret')
             return res.status(201).json({
               message: 'Login success',
-              token
+              token,
+              userid: user._id  
             })
           } else {
             return res.status(500).json({

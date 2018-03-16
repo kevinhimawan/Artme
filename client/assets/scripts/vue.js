@@ -14,11 +14,11 @@ new Vue({
         password: ""
     },
     created:function(){
-        axios.get('http://localhost:3000/home/')
+        axios.get('http://35.197.143.172/home/')
         .then(response=>{
             this.postImages = response.data
             this.userid = localStorage.getItem('userid')
-            axios.get('http://localhost:3000/home/getcategory')
+            axios.get('http://35.197.143.172/home/getcategory')
             .then(response=>{
                 this.categories = response.data
                 console.log(this.postImages)
@@ -39,7 +39,7 @@ new Vue({
             formData.append('user',this.userid)
             formData.append('category',this.getCategory)
             formData.append('description',this.description)
-            axios.post('http://localhost:3000/home/createPost',formData,
+            axios.post('http://35.197.143.172/home/createPost',formData,
             { headers: {
               'Content-type': 'multipart/form-data',
               }
@@ -72,7 +72,7 @@ new Vue({
             }
             const index = likelist.indexOf(this.userid)
             if(index === -1){
-                axios.post('http://localhost:3000/home/like',data)
+                axios.post('http://35.197.143.172/home/like',data)
                 .then(response=>{
                     window.location.href='index.html'
                 })

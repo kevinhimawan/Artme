@@ -4,7 +4,7 @@ function statusChangeCallback(response) {
   if (response.status == "connected") {
     axios({
       method: 'post',
-      url: 'http://localhost:3000/login',
+      url: 'http://35.197.143.172/login',
       data: {
         access_token: response.authResponse.accessToken,
       }

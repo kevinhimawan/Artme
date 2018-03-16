@@ -18,7 +18,7 @@ new Vue({
                 password: this.password
             }
             console.log(userLogin);
-            axios.post('http://localhost:3000/login/login',userLogin)
+            axios.post('http://35.197.143.172/login/login',userLogin)
             .then(response=>{
                 localStorage.setItem('token',response.data.token)
                 localStorage.setItem('userid',response.data.userid)
@@ -36,7 +36,7 @@ new Vue({
                 password: this.password
             }
             console.log(data)
-            axios.post('http://localhost:3000/login/create', data)
+            axios.post('http://35.197.143.172/login/create', data)
                 .then(response=>{
                     alert('signup berhasil')
                     window.location.href='login.html'

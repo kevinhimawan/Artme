@@ -30,7 +30,10 @@
         <nav class="navbar fixed-top navbar-expand-md navbar-dark" style="background-color: black">
             <a class="navbar-brand" href="#">
                 <img src="assets/images/logo.PNG" style="height: 24px; padding: 0px 0px 4px 4px" alt="">
+                
             </a>
+            <input @change="ambilFileNya" type="file" multiple>
+            <button v-on:click="uploadtest" type="button">Click Me</button>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -76,7 +79,6 @@
                 </div>
             </div>
         </div>
-
 
         <!-- Modal Login-->
         <div class="modal fade" id="LoginModalCenter" tabindex="-1" role="dialog" aria-labelledby="LoginModalCenterTitle" aria-hidden="true">
@@ -166,7 +168,7 @@
             </div>
         </div>
     </div>
-        <!-- Modal Profile -->
+    <!-- Modal Profile -->
         <div v-for="post in postImages">
             <div class="modal fade" :id="post.author" tabindex="-1" role="dialog" aria-labelledby="ProfileModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
@@ -257,6 +259,9 @@
         </footer>
     </div>
 </body>
+<!-- Axios -->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<!-- Script Vue -->
 <script src="assets/scripts/vue.js"></script>
 
 </html>

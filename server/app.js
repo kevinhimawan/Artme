@@ -2,8 +2,6 @@ const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
 const multer  = require('multer')
-
-const mongoose = require('mongoose')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 require('dotenv').config()
@@ -20,6 +18,27 @@ mongoose.connect(dbURL,(err)=>{
     console.log(`Connected to database`)
   }
 });
+
+// Multer
+const uploadDisk = multer({
+  storage : multer.diskStorage({
+    destination: (req,file,cb)=>{
+      cb(null,'./image')
+    },
+    filename:(req,file,cb)=>{
+      cb(null,`${Date.now()}.${file.originalname.split('.').pop()}`)
+    }
+  })
+})
+
+
+// app.post('/upload', uploadDisk.single('image'), function (req, res, next) {
+//   console.log(req.file)
+// })
+
+app.post('/upload', uploadDisk.array('image', 12), function (req, res, next) {
+  console.log(req.files)
+})
 
 
 // Routes

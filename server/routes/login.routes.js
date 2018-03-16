@@ -10,6 +10,6 @@ const { logIn, readAllUsers, destroyUser } = require('../controllers/login.route
 
 router.post('/', logIn)
 router.get('/', readAllUsers)
-// router.delete('/:id', destroyUser)
+router.delete('/:id', destroyUser)
 
 module.exports = router

@@ -14,36 +14,36 @@ module.exports = {
           let newUser = new User({
             email: data.email
           });
-                  User.findOne({ email: data.email })
-                    .exec()
-                    .then(user => {
-                      if (user) {
-                        res.status(201).json({
-                          message: "Signin success!",
-                          id: user._id,
-                          token: jwt.sign({ id: user._id }, req.body.access_token)
-                        });
-                      } else {
-                        console.log(newUser)
-                        newUser.save((err, user) => {
-                          console.log('test')
-                          if (err) return res.status(500).json({ message: err });
-                          return res.status(201).json({
-                            message: "New User Created from Facebook!",
-                            user,
-                            token: jwt.sign({ id: user._id }, req.body.access_token)
-                          });
-                        });
-                      }
-                    })
-                    .catch(err => {
-                      res.status(500).json({
-                        message: err
-                      })
-                    })
+          User.findOne({ email: data.email })
+            .exec()
+            .then(user => {
+              if (user) {
+                res.status(201).json({
+                  message: "Signin success!",
+                  id: user._id,
+                  token: jwt.sign({ id: user._id }, req.body.access_token)
+                });
+              } else {
+                newUser.save((err, user) => {
+                  console.log('test')
+                  if (err) return res.status(500).json({ message: err });
+                  return res.status(201).json({
+                    message: "New User Created from Facebook!",
+                    user,
+                    token: jwt.sign({ id: user._id }, req.body.access_token)
+                  });
+                });
+              }
+            })
+            .catch(err => {
+              res.status(500).json({
+                message: err
+              })
+            })
+        } else {
+          
         }
-      }
-    )
+      })
   },
 
   readAllUsers (req, res) {

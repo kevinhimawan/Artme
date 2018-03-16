@@ -1,6 +1,9 @@
 const Post = require('../model/post.model')
 const Comment = require('../model/comment.model')
 const User = require('../model/user.model')
+const multer  = require('multer')
+const File = require('../model/file.model')
+const jwt = require("jsonwebtoken");
 
 module.exports = {
     createPost(req,res){
@@ -9,9 +12,44 @@ module.exports = {
             title,user,category
         })
         newPost.save((err,newPostData)=>{
-            if(!err){res.status(200).json(newPostData)}
+            if(!err){
+                const uploadPhoto = req.files.map(file=>{
+                    return new Promise((resolve,reject)=>{
+                        const {filename,path} = file
+                        const newFile = new File({
+                            name: filename, path, post: newPostData._id
+                        })
+                        newFile.save((err,newFileData)=>{
+                            if(!err){
+                                Post.update({'_id': newPostData._id},
+                                    {'$push': {file: newFileData._id}},
+                                function(err,data){
+                                    if(!err){
+                                        User.update({'_id': user},
+                                        {'$push':{post: newPostData._id}},
+                                        function(err,result){
+                                            if(!err){resolve(data)}
+                                            else{
+                                                reject(err)
+                                            }
+                                        })
+                                    }else{
+                                        res.status(409).json('Error')
+                                    }
+                                })
+                            }else{
+                                res.status(409).json('Error')
+                            }
+                        })
+                    })
+                })
+
+                Promise.all(uploadPhoto).then(result=>{
+                    res.status(200).json({message:'All created'})
+                })
+            }
             else{res.status(409).json(err)}
-        })
+        })  
     },
 
     editPost(req,res){
@@ -21,6 +59,8 @@ module.exports = {
     showAllPost(req,res){
         Post.find()
         .populate('comment')
+        .populate('file')
+        .populate('user')
         .exec()
         .then(postsData=>{
             res.status(200).json(postsData)
@@ -29,21 +69,33 @@ module.exports = {
 
     likePost(req,res){
         const { user,post } = req.body
-        Post.update({'_id': post},
-            {'$push': {like: user}},
-        function (err,result){
-            if(!err){
-                User.update({'_id': user},
-                {'$push': {like: post}},
+        Post.findOne({'_id': post})
+        .exec()
+        .then(postData=>{
+            console.log(postData)
+            const index = postData.like.indexOf(user)
+            console.log(index)
+            if(index === -1){
+                Post.update({'_id': post},
+                {'$push': {like: user}},
                 function (err,result){
-                    if(!err){res.status(200).json(result)}
-                    else{
-                        res.status(409).json({message: `Like function is fail`})
+                    if(!err){
+                        User.update({'_id': user},
+                        {'$push': {like: post}},
+                        function (err,result){
+                            if(!err){res.status(200).json(result)}
+                            else{
+                                res.status(409).json({message: `Like function is fail`})
+                            }
+                        })
                     }
+                    else{res.status(409).json({message: `Like function is fail`})}
                 })
+            }else{
+                res.status(409).json(`Cannot Like Again`)
             }
-            else{res.status(409).json({message: `Like function is fail`})}
         })
+        
     },
 
     unLikePost(req,res){
@@ -64,9 +116,34 @@ module.exports = {
     },
 
     deletePost(req,res){
-        Post.deleteOne({"_id": req.body.postid})
+        const {postid,user} = req.body
+        Post.deleteOne({"_id": postid})
         .then(deleted=>{
-            res.status(200).json(deleted)
+            User.update({'_id':user},
+                {"$pull": {post: postid}},
+            function(err,result){
+                File.find()
+                .exec()
+                .then(fileData=>{
+                    const deleteFile = fileData.map(file=>{
+                        return new Promise((resolve,reject)=>{
+                            File.deleteOne({post: postid},
+                            function(err,result){
+                                if(!err){resolve(result)}
+                                else{reject(err)}
+                            })
+                        })
+                    })
+
+                    Promise.all(deleteFile).then(result=>{
+                        if(!err){
+                            res.status(200).json({message:`Delete and update done`})
+                        }else{
+                            res.status(409).json('Error')
+                        }
+                    })
+                })
+            })
         })
     },
 

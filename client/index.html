@@ -27,24 +27,26 @@
 
 <body>
     <div id="app">
+        <!-- NAVBAR -->
         <nav class="navbar fixed-top navbar-expand-md navbar-dark" style="background-color: black">
             <a class="navbar-brand" href="#">
                 <img src="assets/images/logo.PNG" style="height: 24px; padding: 0px 0px 4px 4px" alt="">
-                
             </a>
-            <input @change="ambilFileNya" type="file" multiple>
-            <button v-on:click="uploadtest" type="button">Click Me</button>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
                         <a class="nav-link text-white" href="#">Profile</a>
                     </li>
+                    <li class="nav-item active">
+                        <a class="nav-link text-white">Create Post</a>
+                    </li>
                 </ul>
-                <div class="navbar-item text-white" style="padding: 0px 8px 0px 0px" data-toggle="modal" data-target="#LoginModalCenter">Login</div>
+                <div class="navbar-item text-white" style="padding: 0px 8px 0px 0px" data-toggle="modal" v-on:click="loginpage" >Login</div>
+                <div class="navbar-item text-white" style="padding: 0px 8px 0px 0px" data-toggle="modal" v-on:click="logout" >Logout</div>
             </div>
         </nav>
         <div class="jumbotron jumbotron-fluid" style="margin: 56px 0px 0px; background: url('assets/images/banner-copy.jpg'); background-size:cover;">
@@ -53,51 +55,69 @@
                 <h1 class="display-4 text-center text-disabled d-block d-md-none">Create Your Art</h1>
             </div>
         </div>
+
+        <!-- NAV -->
         <nav class="nav sticky-top navbar-light bg-light justify-content-center">
             <a class="nav-link" style="color: #00a1de;" href="#">Hot</a>
             <a class="nav-link" style="color:black" href="#">Trending</a>
             <a class="nav-link" style="color:black" href="#">Fresh</a>
         </nav>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-12" style="padding: 15px" v-for="content in postImages">
-                    <div class="card">
-                        <div class="card-content">
-                            <div class="card-body">
-                                <h5 class="card-title" style="margin: auto">{{content.title}}</h5>
-                            </div>
-                            <img class="img-fluid" :src="content.image" alt="Card image cap" data-toggle="modal" :data-target=`#${content.id}`>
-                            <div class="card-body">
-                                <p class="card-text">{{content.desc}}</p>
-                                <a href="#" class="card-link" style="color: gray">
-                                    <i class="fas fa-thumbs-up"></i>
-                                </a>
-                                <a href="#" class="card-link float-right" style="color: gray" data-toggle="modal" :data-target=`#${content.author}`>{{content.author}}</a>
-                            </div>
-                        </div>
+      
+        <!-- CARD -->
+        <post-card :postimages="postImages"></post-card>
+
+        <!-- Button -->
+        <div class="zoom">
+            <a class="zoom-fab zoom-btn-large" id="zoomBtn" data-toggle="modal" data-target="#plusmodal"><i class="fas fa-plus" style="color: white"></i></a>
+            <!-- <ul class="zoom-menu">
+                <li><a class="zoom-fab zoom-btn-sm zoom-btn-person scale-transition scale-out">Action 1</a></li>
+                <li><a class="zoom-fab zoom-btn-sm zoom-btn-doc scale-transition scale-out">Action 2</a></li>
+                <li><a class="zoom-fab zoom-btn-sm zoom-btn-tangram scale-transition scale-out">Action 3</a></li>
+                <li><a class="zoom-fab zoom-btn-sm zoom-btn-report scale-transition scale-out">Action 4</a></li>
+                <li><a class="zoom-fab zoom-btn-sm zoom-btn-feedback scale-transition scale-out">Action 5</a></li>
+            </ul>
+            <div class="zoom-card scale-transition scale-out">
+                <ul class="zoom-card-content">
+                <li>Content 1</li>
+                <li>Content 2</li>
+                <li>Content 3</li>
+                <li>Content 4</li>
+                <li>Content 5</li>
+                </ul>
+            </div> -->
+        </div>
+              
+        <!-- Modal Submit -->
+        <div class="modal fade" id="plusmodal" tabindex="-1" role="dialog" aria-labelledby="plusmodalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="plusmodalLabel">Post your art</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <span>Title: </span><input type="text" class="form-control">
+                        <span>Description: </span><input type="text" class="form-control">
+                        <span>Your art: </span><br>
+                        <input @change="ambilFileNya" type="file" multiple>
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" v-on:click="uploadtest" class="btn text-light" style="background-color:#00a1de">Post <i class="fas fa-angle-right"></i></button>
+                </div>
                 </div>
             </div>
         </div>
 
         <!-- Modal Login-->
-        <div class="modal fade" id="LoginModalCenter" tabindex="-1" role="dialog" aria-labelledby="LoginModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content" style="background-color: #d3d3d3;">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="LoginModalCenterTitle">Login To Your Account</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                    </div>
-                    <div class="modal-body" style="background-color: #fff">
-                        <p class="text-center">Login Here</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <modal-login></modal-login>
 
         <!-- Modal Post -->
+
         <modal-post 
             v-bind:postimages="postImages">
         </modal-post>
@@ -111,13 +131,20 @@
 </body>
 <!-- Axios -->
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 <!-- Script Component Modal Post -->
 <script src="assets/scripts/modal-post.js"></script>
 <!-- Script Component Modal Profile -->
 <script src="assets/scripts/modal-profile.js"></script>
 <!-- Script Component Footer -->
 <script src="assets/scripts/footer.js"></script>
+
+<!-- Script Component -->
+<script src="assets/scripts/modal-login.js"></script>
+<script src="assets/scripts/post-card.js"></script>
+
 <!-- Script Vue -->
 <script src="assets/scripts/vue.js"></script>
-
+<!-- Script Floating Button -->
+<script src="assets/scripts/button.js"></script>
 </html>

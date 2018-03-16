@@ -8,6 +8,7 @@ require('dotenv').config()
 app.use(cors())
 
 // Public
+app.use(express.json())
 app.use(express.static('public'))
 
 // Body-Parser
@@ -30,8 +31,10 @@ const Login = require('./routes/login.routes')
 const Home = require('./routes/home.routes')
 
 // App use
-app.use('/login', Login)
-app.use('/home', Home)
+
+app.use('/login',Login)
+app.use('/home',Home)
+
 
 app.listen(3000, () => {
   console.log(`Welcome Abroad`)

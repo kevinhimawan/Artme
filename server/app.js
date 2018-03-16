@@ -1,6 +1,8 @@
 const express = require('express')
+const mongoose = require('mongoose')
 const app = express()
 const multer  = require('multer')
+
 const mongoose = require('mongoose')
 const cors = require('cors')
 const bodyParser = require('body-parser')
@@ -12,16 +14,13 @@ app.use(bodyParser.urlencoded({extended:false}))
 
 // Monggose
 const dbURL = 'mongodb://localhost/artme'
+
 mongoose.connect(dbURL,(err)=>{
   if(!err){
     console.log(`Connected to database`)
   }
 });
 
-// Testing
-app.get('/',(req,res)=>{
-    res.status(200).json('testing')
-})
 
 // Routes
 const Login = require('./routes/login.routes')

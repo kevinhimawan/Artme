@@ -26,11 +26,11 @@ mongoose.connect(dbURL,(err)=>{
 // Routes
 const Login = require('./routes/login.routes')
 const Home = require('./routes/home.routes')
-const Admin = require('./routes/admin.routes')
+const Signup = require('./routes/signup.routes')
 
 // App use
 app.use('/login',Login)
 app.use('/home',Home)
-app.use('/admin',Admin)
+app.use('/signup',Signup)
 
 app.listen(3000,()=>{console.log(`Welcome Abroad`)})

@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
-  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.15/dist/vue.js"></script>
   <title>Document</title>
 </head>
 <body>
-  <div class="container">
+  <div id="loginPage" class="container">
     <!-- Trigger the modal with a button -->
     <button type="button" class="btn btn-default btn-lg" id="myBtn">Login</button>
 
@@ -29,18 +29,14 @@
               <div class="form-group">
                 <label for="usrname">
                   <span class="glyphicon glyphicon-user"></span> Username</label>
-                <input type="text" class="form-control" id="usrname" placeholder="Enter email">
+                <input v-model="username" type="text" class="form-control" id="username" placeholder="Enter username or password ">
               </div>
               <div class="form-group">
                 <label for="psw">
                   <span class="glyphicon glyphicon-eye-open"></span> Password</label>
-                <input type="text" class="form-control" id="psw" placeholder="Enter password">
+                <input v-model="password" type="password" class="form-control" id="psw" placeholder="Enter password">
               </div>
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" value="" checked>Remember me</label>
-              </div>
-              <button type="submit" class="btn btn-success btn-block">
+              <button v-on:click="login" type="button" class="btn btn-success btn-block">
                 <span class="glyphicon glyphicon-off"></span> Login</button>
             </form>
             <div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true" scope="public_profile,publish_actions,email" onlogin="checkLoginState();"></div>
@@ -48,19 +44,12 @@
           <div class="modal-footer">
             <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal">
               <span class="glyphicon glyphicon-remove"></span> Cancel</button>
-            <!-- <p>Not a member?
-              <a href="#">Sign Up</a>
-            </p>
-            <p>Forgot
-              <a href="#">Password?</a>
-            </p> -->
           </div>
         </div>
-
       </div>
     </div>
   </div>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
   <script src="./lib/fbsdk.js"></script> 
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -72,5 +61,10 @@
         });
     });
   </script>
+
+  <!-- Axios -->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<!-- Script Vue -->
+<script src="assets/scripts/login.js"></script>
 </body>
 </html>

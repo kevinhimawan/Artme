@@ -3,6 +3,7 @@ const Comment = require('../model/comment.model')
 const User = require('../model/user.model')
 const multer  = require('multer')
 const File = require('../model/file.model')
+const jwt = require("jsonwebtoken");
 
 module.exports = {
     createPost(req,res){
@@ -59,6 +60,7 @@ module.exports = {
         Post.find()
         .populate('comment')
         .populate('file')
+        .populate('user')
         .exec()
         .then(postsData=>{
             res.status(200).json(postsData)
@@ -67,21 +69,33 @@ module.exports = {
 
     likePost(req,res){
         const { user,post } = req.body
-        Post.update({'_id': post},
-            {'$push': {like: user}},
-        function (err,result){
-            if(!err){
-                User.update({'_id': user},
-                {'$push': {like: post}},
+        Post.findOne({'_id': post})
+        .exec()
+        .then(postData=>{
+            console.log(postData)
+            const index = postData.like.indexOf(user)
+            console.log(index)
+            if(index === -1){
+                Post.update({'_id': post},
+                {'$push': {like: user}},
                 function (err,result){
-                    if(!err){res.status(200).json(result)}
-                    else{
-                        res.status(409).json({message: `Like function is fail`})
+                    if(!err){
+                        User.update({'_id': user},
+                        {'$push': {like: post}},
+                        function (err,result){
+                            if(!err){res.status(200).json(result)}
+                            else{
+                                res.status(409).json({message: `Like function is fail`})
+                            }
+                        })
                     }
+                    else{res.status(409).json({message: `Like function is fail`})}
                 })
+            }else{
+                res.status(409).json(`Cannot Like Again`)
             }
-            else{res.status(409).json({message: `Like function is fail`})}
         })
+        
     },
 
     unLikePost(req,res){

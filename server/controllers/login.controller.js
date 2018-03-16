@@ -66,7 +66,10 @@ module.exports = {
                 const check = bcrypt.compareSync(password, userData.password)
                 if(check){
                     const token = jwt.sign({id: userData._id,email: userData.email,username: userData.username},'secret')
-                    res.status(200).json(token)
+                    res.status(200).json({
+                        token: token,
+                        userid: userData._id
+                    })
                 }else{
                     res.status(409).json(`Password is incorrect`)
                 }
